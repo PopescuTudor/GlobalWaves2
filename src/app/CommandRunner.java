@@ -3,10 +3,13 @@ package app;
 import app.audio.Collections.PlaylistOutput;
 import app.player.PlayerStats;
 import app.searchBar.Filters;
+import app.user.Artist;
+import app.user.Host;
 import app.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.input.CommandInput;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +34,21 @@ public final class CommandRunner {
      */
     public static ObjectNode search(final CommandInput commandInput) {
         User user = Admin.getUser(commandInput.getUsername());
-        Filters filters = new Filters(commandInput.getFilters());
-        String type = commandInput.getType();
 
-        ArrayList<String> results = user.search(filters, type);
-        String message = "Search returned " + results.size() + " results";
+        String message;
+        ArrayList<String> results = new ArrayList<>();
+
+        if (!user.isStatus()) {
+            message = commandInput.getUsername() + " is offline.";
+        }
+        else {
+            Filters filters = new Filters(commandInput.getFilters());
+            String type = commandInput.getType();
+
+            results = user.search(filters, type);
+            message = "Search returned " + results.size() + " results";
+
+        }
 
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("command", commandInput.getCommand());
@@ -422,6 +435,54 @@ public final class CommandRunner {
         objectNode.put("command", commandInput.getCommand());
         objectNode.put("timestamp", commandInput.getTimestamp());
         objectNode.put("result", objectMapper.valueToTree(playlists));
+
+        return objectNode;
+    }
+
+    /**
+     * Switch connection status of a user
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode switchConnectionStatus(final CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        Host host = Admin.getHost(commandInput.getUsername());
+        Artist artist = Admin.getArtist(commandInput.getUsername());
+
+        String message;
+        if (user != null) {
+            message = user.changeStatus();
+        }
+        else if (host != null || artist != null) {
+            message = commandInput.getUsername() + " is not a normal user.";
+        }
+        else {
+            message = "The username " +  commandInput.getUsername()
+                    + " doesn't exist.";
+        }
+
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+    /**
+     * Gets all normal online users
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode getOnlineUsers(final CommandInput commandInput) {
+        List<String> onlineUsers = Admin.getOnlineUsers();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(onlineUsers));
 
         return objectNode;
     }

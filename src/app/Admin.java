@@ -4,6 +4,8 @@ import app.audio.Collections.Playlist;
 import app.audio.Collections.Podcast;
 import app.audio.Files.Episode;
 import app.audio.Files.Song;
+import app.user.Artist;
+import app.user.Host;
 import app.user.User;
 import fileio.input.EpisodeInput;
 import fileio.input.PodcastInput;
@@ -19,6 +21,8 @@ import java.util.List;
  */
 public final class Admin {
     private static List<User> users = new ArrayList<>();
+    private static List<Artist> artists = new ArrayList<>();
+    private static List<Host> hosts = new ArrayList<>();
     private static List<Song> songs = new ArrayList<>();
     private static List<Podcast> podcasts = new ArrayList<>();
     private static int timestamp = 0;
@@ -119,6 +123,37 @@ public final class Admin {
     }
 
     /**
+     * Gets artist.
+     *
+     * @param artistName the artist name
+     * @return the artist
+     */
+    public static Artist getArtist(final String artistName) {
+        for (Artist artist : artists) {
+            if (artist.getUsername().equals(artistName)) {
+                return artist;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets host.
+     *
+     * @param hostName the host name
+     * @return the host
+     */
+
+    public static Host getHost(final String hostName) {
+        for (Host host : hosts) {
+            if (host.getUsername().equals(hostName)) {
+                return host;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Update timestamp.
      *
      * @param newTimestamp the new timestamp
@@ -182,8 +217,25 @@ public final class Admin {
      */
     public static void reset() {
         users = new ArrayList<>();
+        artists = new ArrayList<>();
+        hosts = new ArrayList<>();
         songs = new ArrayList<>();
         podcasts = new ArrayList<>();
         timestamp = 0;
+    }
+
+    /**
+     * Gets online normal users.
+     *
+     * @return the users
+     */
+    public static List<String> getOnlineUsers() {
+        List<String> onlineUsers = new ArrayList<>();
+        for (User user : users) {
+            if (user.isStatus()) {
+                onlineUsers.add(user.getUsername());
+            }
+        }
+        return onlineUsers;
     }
 }

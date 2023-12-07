@@ -21,6 +21,8 @@ import java.util.List;
  */
 public class User {
     @Getter
+    private boolean status;
+    @Getter
     private String username;
     @Getter
     private int age;
@@ -53,6 +55,15 @@ public class User {
         player = new Player();
         searchBar = new SearchBar(username);
         lastSearched = false;
+        status = true;
+    }
+
+    /**
+     * Change login status
+     */
+    public String changeStatus() {
+        status = !status;
+        return username + " has changed status successfully.";
     }
 
     /**
@@ -478,6 +489,9 @@ public class User {
      * @param time the time
      */
     public void simulateTime(final int time) {
-        player.simulatePlayer(time);
+        if (status) {
+            player.simulatePlayer(time);
+        }
+
     }
 }
