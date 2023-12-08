@@ -1,8 +1,5 @@
 Starting audit...
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:12:8: Unused import - org.checkerframework.checker.units.qual.A. [UnusedImports]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:43:9: '}' at column 9 should be on the same line as the next part of a multi-block statement (one that directly contains multiple blocks: if/else-if/else, do/while or try/catch/finally). [RightCurly]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:455:9: '}' at column 9 should be on the same line as the next part of a multi-block statement (one that directly contains multiple blocks: if/else-if/else, do/while or try/catch/finally). [RightCurly]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:458:9: '}' at column 9 should be on the same line as the next part of a multi-block statement (one that directly contains multiple blocks: if/else-if/else, do/while or try/catch/finally). [RightCurly]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\Artist.java:3:8: Unused import - app.audio.Collections.Playlist. [UnusedImports]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\Artist.java:4:8: Unused import - app.audio.Files.Song. [UnusedImports]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\Artist.java:5:8: Unused import - app.player.Player. [UnusedImports]
@@ -11,4 +8,4 @@ Starting audit...
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\main\Main.java:80: Line is longer than 100 characters (found 107). [LineLength]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\main\Main.java:83: Line is longer than 100 characters (found 153). [LineLength]
 Audit done.
-Checkstyle ends with 11 errors.
+Checkstyle ends with 8 errors.

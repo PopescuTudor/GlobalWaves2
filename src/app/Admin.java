@@ -27,8 +27,17 @@ public final class Admin {
     private static List<Podcast> podcasts = new ArrayList<>();
     private static int timestamp = 0;
     private static final int LIMIT = 5;
+    // singleton pattern
+    private static Admin instance = null;
 
     private Admin() {
+    }
+
+    public static Admin getInstance() {
+        if (instance == null) {
+            instance = new Admin();
+        }
+        return instance;
     }
 
     /**
@@ -237,5 +246,41 @@ public final class Admin {
             }
         }
         return onlineUsers;
+    }
+
+    /**
+     * Add podcast from host to admin.
+     *
+     * @param podcast the podcast
+     */
+    public static void addPodcast(final Podcast podcast) {
+        podcasts.add(podcast);
+    }
+
+    /**
+     * Add new normal user
+     *
+     * @param user the user
+     */
+    public static void addNewUser(final User user) {
+        users.add(user);
+    }
+
+    /**
+     * Add new artist
+     *
+     * @param artist the artist
+     */
+    public static void addNewArtist(final Artist artist) {
+        artists.add(artist);
+    }
+
+    /**
+     * Add new host
+     *
+     * @param host the host
+     */
+    public static void addNewHost(final Host host) {
+        hosts.add(host);
     }
 }

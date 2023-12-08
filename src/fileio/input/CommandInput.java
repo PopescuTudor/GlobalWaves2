@@ -1,16 +1,22 @@
 package fileio.input;
 
+import java.util.ArrayList;
+
 public final class CommandInput {
+    private String name; // pentru add podcast
+    private ArrayList<EpisodeInput> episodes; // pentru add podcast
     private String command;
     private String username;
     private Integer timestamp;
-    private String type; // song / playlist / podcast
+    private String type; // song / playlist / podcast / user
     private FiltersInput filters; // pentru search
     private Integer itemNumber; // pentru select
     private Integer repeatMode; // pentru repeat
     private Integer playlistId; // pentru add/remove song
     private String playlistName; // pentru create playlist
     private Integer seed; // pentru shuffle
+    private Integer age; // pentru add user
+    private String city; // pentru add user
 
     public CommandInput() {
     }
@@ -95,6 +101,38 @@ public final class CommandInput {
         this.seed = seed;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public ArrayList<EpisodeInput> getEpisodes() {
+        return episodes;
+    }
+
+    public void setEpisodes(final ArrayList<EpisodeInput> episodes) {
+        this.episodes = episodes;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(final Integer age) {
+        this.age = age;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(final String city) {
+        this.city = city;
+    }
+
     @Override
     public String toString() {
         return "CommandInput{"
@@ -107,7 +145,11 @@ public final class CommandInput {
                 + ", repeatMode=" + repeatMode
                 + ", playlistId=" + playlistId
                 + ", playlistName='" + playlistName + '\''
-                + ", seed=" + seed
+                + ", seed=" + seed  + '\''
+                + ", name='" + name + '\''
+                + ", episodes=" + episodes
+                + ", age=" + age
+                + ", city='" + city + '\''
                 + '}';
     }
 }
