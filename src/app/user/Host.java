@@ -34,7 +34,7 @@ public class Host {
 
         // add the podcast
         this.podcasts.add(podcast);
-        Admin.addPodcast(podcast);
+        Admin.getInstance().addPodcast(podcast);
         return username + " has added new podcast successfully.";
     }
 }

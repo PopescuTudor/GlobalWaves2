@@ -20,13 +20,13 @@ import java.util.List;
  * The type Admin.
  */
 public final class Admin {
-    private static List<User> users = new ArrayList<>();
-    private static List<Artist> artists = new ArrayList<>();
-    private static List<Host> hosts = new ArrayList<>();
-    private static List<Song> songs = new ArrayList<>();
-    private static List<Podcast> podcasts = new ArrayList<>();
-    private static int timestamp = 0;
-    private static final int LIMIT = 5;
+    private List<User> users = new ArrayList<>();
+    private List<Artist> artists = new ArrayList<>();
+    private List<Host> hosts = new ArrayList<>();
+    private List<Song> songs = new ArrayList<>();
+    private List<Podcast> podcasts = new ArrayList<>();
+    private int timestamp = 0;
+    private final int LIMIT = 5;
     // singleton pattern
     private static Admin instance = null;
 
@@ -45,7 +45,7 @@ public final class Admin {
      *
      * @param userInputList the user input list
      */
-    public static void setUsers(final List<UserInput> userInputList) {
+    public void setUsers(final List<UserInput> userInputList) {
         users = new ArrayList<>();
         for (UserInput userInput : userInputList) {
             users.add(new User(userInput.getUsername(), userInput.getAge(), userInput.getCity()));
@@ -57,7 +57,7 @@ public final class Admin {
      *
      * @param songInputList the song input list
      */
-    public static void setSongs(final List<SongInput> songInputList) {
+    public void setSongs(final List<SongInput> songInputList) {
         songs = new ArrayList<>();
         for (SongInput songInput : songInputList) {
             songs.add(new Song(songInput.getName(), songInput.getDuration(), songInput.getAlbum(),
@@ -72,7 +72,7 @@ public final class Admin {
      *
      * @param podcastInputList the podcast input list
      */
-    public static void setPodcasts(final List<PodcastInput> podcastInputList) {
+    public void setPodcasts(final List<PodcastInput> podcastInputList) {
         podcasts = new ArrayList<>();
         for (PodcastInput podcastInput : podcastInputList) {
             List<Episode> episodes = new ArrayList<>();
@@ -90,7 +90,7 @@ public final class Admin {
      *
      * @return the songs
      */
-    public static List<Song> getSongs() {
+    public List<Song> getSongs() {
         return new ArrayList<>(songs);
     }
 
@@ -99,7 +99,7 @@ public final class Admin {
      *
      * @return the podcasts
      */
-    public static List<Podcast> getPodcasts() {
+    public List<Podcast> getPodcasts() {
         return new ArrayList<>(podcasts);
     }
 
@@ -108,7 +108,7 @@ public final class Admin {
      *
      * @return the playlists
      */
-    public static List<Playlist> getPlaylists() {
+    public List<Playlist> getPlaylists() {
         List<Playlist> playlists = new ArrayList<>();
         for (User user : users) {
             playlists.addAll(user.getPlaylists());
@@ -122,7 +122,7 @@ public final class Admin {
      * @param username the username
      * @return the user
      */
-    public static User getUser(final String username) {
+    public User getUser(final String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 return user;
@@ -137,7 +137,7 @@ public final class Admin {
      * @param artistName the artist name
      * @return the artist
      */
-    public static Artist getArtist(final String artistName) {
+    public Artist getArtist(final String artistName) {
         for (Artist artist : artists) {
             if (artist.getUsername().equals(artistName)) {
                 return artist;
@@ -153,7 +153,7 @@ public final class Admin {
      * @return the host
      */
 
-    public static Host getHost(final String hostName) {
+    public Host getHost(final String hostName) {
         for (Host host : hosts) {
             if (host.getUsername().equals(hostName)) {
                 return host;
@@ -167,7 +167,7 @@ public final class Admin {
      *
      * @param newTimestamp the new timestamp
      */
-    public static void updateTimestamp(final int newTimestamp) {
+    public void updateTimestamp(final int newTimestamp) {
         int elapsed = newTimestamp - timestamp;
         timestamp = newTimestamp;
         if (elapsed == 0) {
@@ -184,7 +184,7 @@ public final class Admin {
      *
      * @return the top 5 songs
      */
-    public static List<String> getTop5Songs() {
+    public List<String> getTop5Songs() {
         List<Song> sortedSongs = new ArrayList<>(songs);
         sortedSongs.sort(Comparator.comparingInt(Song::getLikes).reversed());
         List<String> topSongs = new ArrayList<>();
@@ -204,7 +204,7 @@ public final class Admin {
      *
      * @return the top 5 playlists
      */
-    public static List<String> getTop5Playlists() {
+    public List<String> getTop5Playlists() {
         List<Playlist> sortedPlaylists = new ArrayList<>(getPlaylists());
         sortedPlaylists.sort(Comparator.comparingInt(Playlist::getFollowers)
                 .reversed()
@@ -224,7 +224,7 @@ public final class Admin {
     /**
      * Reset.
      */
-    public static void reset() {
+    public void reset() {
         users = new ArrayList<>();
         artists = new ArrayList<>();
         hosts = new ArrayList<>();
@@ -238,7 +238,7 @@ public final class Admin {
      *
      * @return the users
      */
-    public static List<String> getOnlineUsers() {
+    public List<String> getOnlineUsers() {
         List<String> onlineUsers = new ArrayList<>();
         for (User user : users) {
             if (user.isStatus()) {
@@ -253,7 +253,7 @@ public final class Admin {
      *
      * @param podcast the podcast
      */
-    public static void addPodcast(final Podcast podcast) {
+    public void addPodcast(final Podcast podcast) {
         podcasts.add(podcast);
     }
 
@@ -262,7 +262,7 @@ public final class Admin {
      *
      * @param user the user
      */
-    public static void addNewUser(final User user) {
+    public void addNewUser(final User user) {
         users.add(user);
     }
 
@@ -271,7 +271,7 @@ public final class Admin {
      *
      * @param artist the artist
      */
-    public static void addNewArtist(final Artist artist) {
+    public void addNewArtist(final Artist artist) {
         artists.add(artist);
     }
 
@@ -280,7 +280,7 @@ public final class Admin {
      *
      * @param host the host
      */
-    public static void addNewHost(final Host host) {
+    public void addNewHost(final Host host) {
         hosts.add(host);
     }
 }

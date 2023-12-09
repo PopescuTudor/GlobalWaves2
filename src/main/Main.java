@@ -80,16 +80,16 @@ public final class Main {
         LibraryInput library = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\"
                         + "library/library.json"),
                 LibraryInput.class);
-        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test01_etapa2.json"), CommandInput[].class);
+        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test02_etapa2.json"), CommandInput[].class);
 
         ArrayNode outputs = objectMapper.createArrayNode();
 
-        Admin.setUsers(library.getUsers());
-        Admin.setSongs(library.getSongs());
-        Admin.setPodcasts(library.getPodcasts());
+        Admin.getInstance().setUsers(library.getUsers());
+        Admin.getInstance().setSongs(library.getSongs());
+        Admin.getInstance().setPodcasts(library.getPodcasts());
 
         for (CommandInput command : commands) {
-            Admin.updateTimestamp(command.getTimestamp());
+            Admin.getInstance().updateTimestamp(command.getTimestamp());
 
             String commandName = command.getCommand();
 
@@ -127,6 +127,6 @@ public final class Main {
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), outputs);
 
-        Admin.reset();
+        Admin.getInstance().reset();
     }
 }
