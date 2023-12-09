@@ -1,6 +1,7 @@
 package app;
 
 import app.audio.Collections.Album;
+import app.audio.Collections.AlbumOutput;
 import app.audio.Collections.Playlist;
 import app.audio.Collections.Podcast;
 import app.audio.Files.Episode;
@@ -310,4 +311,19 @@ public final class Admin {
     public void addNewHost(final Host host) {
         hosts.add(host);
     }
+
+    /**
+     * show albuums of an artist
+     *
+     * @param artist the artist
+     */
+    public ArrayList<Album> getAlbumsOfArtist(final String artistUsername) {
+        for (Artist artist : artists) {
+            if (artist.getUsername().equals(artistUsername)) {
+                return artist.getAlbums();
+            }
+        }
+        return null;
+    }
+
 }

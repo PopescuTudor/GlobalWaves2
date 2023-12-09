@@ -1,5 +1,7 @@
 package app;
 
+import app.audio.Collections.Album;
+import app.audio.Collections.AlbumOutput;
 import app.audio.Collections.PlaylistOutput;
 import app.audio.Collections.Podcast;
 import app.audio.Files.Episode;
@@ -707,6 +709,45 @@ public final class CommandRunner {
         objectNode.put("command", commandInput.getCommand());
         objectNode.put("timestamp", commandInput.getTimestamp());
         objectNode.put("user", commandInput.getUsername());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+    /**
+     * show albums of an artist
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode showAlbums(final CommandInput commandInput) {
+        ArrayList<Album> albums = Admin.getInstance().getAlbumsOfArtist(commandInput.getUsername());
+        List<AlbumOutput> results = new ArrayList<>();
+        for (Album album : albums) {
+            results.add(new AlbumOutput(album));
+        }
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(results));
+
+        return objectNode;
+    }
+
+    /**
+     * prints the page that the user is currently on
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode printCurrentPage(final CommandInput commandInput) {
+        User user = Admin.getInstance().getUser(commandInput.getUsername());
+        String message = user.printCurrentPage();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
         objectNode.put("message", message);
 
         return objectNode;

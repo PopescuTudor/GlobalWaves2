@@ -48,7 +48,7 @@ public class Artist {
                 break;
             }
         }
-        if (message != null) {
+        if (message == null) {
             // check for songs with the same name in the album
             if (hasDuplicates(songs)) {
                 message = username + " has the same song at least twice in this album.";

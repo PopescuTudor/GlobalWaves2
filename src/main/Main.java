@@ -80,7 +80,7 @@ public final class Main {
         LibraryInput library = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\"
                         + "library/library.json"),
                 LibraryInput.class);
-        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test02_etapa2.json"), CommandInput[].class);
+        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test03_etapa2.json"), CommandInput[].class);
 
         ArrayNode outputs = objectMapper.createArrayNode();
 
@@ -122,6 +122,8 @@ public final class Main {
                 case "addPodcast" -> outputs.add(CommandRunner.addPodcast(command));
                 case "addUser" -> outputs.add(CommandRunner.addUser(command));
                 case "addAlbum" -> outputs.add(CommandRunner.addAlbum(command));
+                case "showAlbums" -> outputs.add(CommandRunner.showAlbums(command));
+                case "printCurrentPage" -> outputs.add(CommandRunner.printCurrentPage(command));
                 default -> System.out.println("Invalid command " + commandName);
             }
         }

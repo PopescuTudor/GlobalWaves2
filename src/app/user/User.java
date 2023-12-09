@@ -12,6 +12,7 @@ import app.searchBar.Filters;
 import app.searchBar.SearchBar;
 import app.utils.Enums;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,8 @@ public class User {
     private final Player player;
     private final SearchBar searchBar;
     private boolean lastSearched;
+    @Getter
+    private String currentPage;
 
     /**
      * Instantiates a new User.
@@ -56,6 +59,7 @@ public class User {
         searchBar = new SearchBar(username);
         lastSearched = false;
         status = true;
+        currentPage = "HomePage";
     }
 
     /**
@@ -493,5 +497,36 @@ public class User {
             player.simulatePlayer(time);
         }
 
+    }
+
+    /**
+     * prints the page that the user is currently on
+     *
+     * @return current page as a string
+     */
+    public String printCurrentPage() {
+        switch (currentPage) {
+            case "HomePage" -> {
+                return String.format("Liked songs:\n\t%s\n\nFollowed playlists:\n\t%s",
+                        showPreferredSongs(), showPlaylistsNames());
+            }
+            default -> {
+                return currentPage;
+            }
+        }
+    }
+
+    /**
+     * show the playlists' names that the user follows
+     *
+     * @return the playlists' names that the user follows
+     */
+    public ArrayList<String> showPlaylistsNames() {
+        ArrayList<String> results = new ArrayList<>();
+        for (Playlist playlist : followedPlaylists) {
+            results.add(playlist.getName());
+        }
+
+        return results;
     }
 }
