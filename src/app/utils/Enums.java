@@ -15,14 +15,18 @@ public class Enums { // diferite enumuri, le-am gurpat pe toate intr-un loc
     public enum SearchType {
         SONG,
         PLAYLIST,
-        PODCAST
+        PODCAST,
+        ALBUM,
+        ARTIST,
+        HOST
     }
+
 
     public enum RepeatMode {
         REPEAT_ALL, REPEAT_ONCE, REPEAT_INFINITE, REPEAT_CURRENT_SONG, NO_REPEAT,
     }
 
     public enum PlayerSourceType {
-        LIBRARY, PLAYLIST, PODCAST
+        LIBRARY, PLAYLIST, PODCAST, ALBUM
     }
 }

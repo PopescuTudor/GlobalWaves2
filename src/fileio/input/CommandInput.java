@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public final class CommandInput {
     private String name; // pentru add podcast
     private ArrayList<EpisodeInput> episodes; // pentru add podcast
+    private ArrayList<SongInput> songs; // pentru add album
     private String command;
     private String username;
     private Integer timestamp;
@@ -17,6 +18,8 @@ public final class CommandInput {
     private Integer seed; // pentru shuffle
     private Integer age; // pentru add user
     private String city; // pentru add user
+    private Integer releaseYear; // pentru add album
+    private String description; // pentru add album
 
     public CommandInput() {
     }
@@ -117,6 +120,14 @@ public final class CommandInput {
         this.episodes = episodes;
     }
 
+    public ArrayList<SongInput> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(final ArrayList<SongInput> songs) {
+        this.songs = songs;
+    }
+
     public Integer getAge() {
         return age;
     }
@@ -131,6 +142,22 @@ public final class CommandInput {
 
     public void setCity(final String city) {
         this.city = city;
+    }
+
+    public Integer getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(final Integer releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     @Override
@@ -148,8 +175,11 @@ public final class CommandInput {
                 + ", seed=" + seed  + '\''
                 + ", name='" + name + '\''
                 + ", episodes=" + episodes
+                + ", songs=" + songs
                 + ", age=" + age
                 + ", city='" + city + '\''
+                + ", releaseYear=" + releaseYear
+                + ", description='" + description + '\''
                 + '}';
     }
 }

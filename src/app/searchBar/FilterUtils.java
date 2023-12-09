@@ -104,6 +104,18 @@ public final class FilterUtils {
     }
 
     /**
+     * Filter by description of Album
+     *
+     * @param entries
+     * @param description
+     * @return the list
+     */
+    public static List<LibraryEntry> filterByDescription(final List<LibraryEntry> entries,
+                                                         final String description) {
+        return filter(entries, entry -> entry.matchesDescription(description));
+    }
+
+    /**
      * Filter by owner list.
      *
      * @param entries the entries

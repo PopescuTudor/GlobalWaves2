@@ -3,6 +3,7 @@ package app;
 import app.audio.Collections.PlaylistOutput;
 import app.audio.Collections.Podcast;
 import app.audio.Files.Episode;
+import app.audio.Files.Song;
 import app.player.PlayerStats;
 import app.searchBar.Filters;
 import app.user.Artist;
@@ -605,12 +606,109 @@ public final class CommandRunner {
     }
 
     /**
+     * Add a new album for artist
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode addAlbum(final CommandInput commandInput) {
+        Artist artist = Admin.getInstance().getArtist(commandInput.getUsername());
+        User user = Admin.getInstance().getUser(commandInput.getUsername());
+        Host host = Admin.getInstance().getHost(commandInput.getUsername());
+        String message;
+        if (artist == null && user == null && host == null) {
+            message = "The username " + commandInput.getUsername() + " doesn't exist.";
+        } else if (artist == null) {
+            message = commandInput.getUsername() + " is not an artist.";
+        } else {
+            // create a playlist from songsInput
+            ArrayList<Song> songs = new ArrayList<>();
+            for (int i = 0; i < commandInput.getSongs().size(); i++) {
+                songs.add(new Song(commandInput.getSongs().get(i).getName(),
+                                commandInput.getSongs().get(i).getDuration(),
+                                commandInput.getSongs().get(i).getAlbum(),
+                                commandInput.getSongs().get(i).getTags(),
+                                commandInput.getSongs().get(i).getLyrics(),
+                                commandInput.getSongs().get(i).getGenre(),
+                                commandInput.getSongs().get(i).getReleaseYear(),
+                                commandInput.getSongs().get(i).getArtist()));
+            }
+
+            message = artist.addAlbum(commandInput.getName(), commandInput.getUsername(),
+                    commandInput.getDescription(), songs, commandInput.getReleaseYear(),
+                    commandInput.getTimestamp());
+        }
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+
+
+    /**
      * Adds a new user
      *
      * @param commandInput the command input
      */
-//    public static ObjectNode addUser(final CommandInput  commandInput) {
-//        // check if the username is already taken
-////        for(User user : Admin.getInstance().getUser() )
-//    }
+    public static ObjectNode addUser(final CommandInput  commandInput) {
+
+        String message = null;
+        // check if the username is already taken
+        for (User user : Admin.getInstance().getUsers()) {
+            if (user.getUsername().equals(commandInput.getUsername())) {
+                message = "The username " + commandInput.getUsername() + " is already taken.";
+                break;
+            }
+        }
+        for (Host host : Admin.getInstance().getHosts()) {
+            if (host.getUsername().equals(commandInput.getUsername())) {
+                message = "The username " + commandInput.getUsername() + " is already taken.";
+                break;
+            }
+        }
+        for (Artist artist : Admin.getInstance().getArtists()) {
+            if (artist.getUsername().equals(commandInput.getUsername())) {
+                message = "The username " + commandInput.getUsername() + " is already taken.";
+                break;
+            }
+        }
+
+        if(message == null) {
+            switch (commandInput.getType()) {
+                case "user" -> {
+                    User user = new User(commandInput.getUsername(), commandInput.getAge()
+                                    , commandInput.getCity());
+                    Admin.getInstance().addNewUser(user);
+                    message = "The username " + commandInput.getUsername()
+                            + " has been added successfully.";
+                }
+                case "artist" -> {
+                    Artist artist = new Artist(commandInput.getUsername(), commandInput.getAge()
+                            , commandInput.getCity());
+                    Admin.getInstance().addNewArtist(artist);
+                    message = "The username " + commandInput.getUsername()
+                                + " has been added successfully.";
+                }
+                case "host" -> {
+                    Host host = new Host(commandInput.getUsername(), commandInput.getAge()
+                            , commandInput.getCity());
+                    Admin.getInstance().addNewHost(host);
+                    message = "The username " + commandInput.getUsername()
+                            + " has been added successfully.";
+                }
+                default -> message = "Invalid type.";
+            }
+        }
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
 }

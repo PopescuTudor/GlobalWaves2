@@ -10,6 +10,7 @@ import java.util.List;
 
 import static app.searchBar.FilterUtils.filterByAlbum;
 import static app.searchBar.FilterUtils.filterByArtist;
+import static app.searchBar.FilterUtils.filterByDescription;
 import static app.searchBar.FilterUtils.filterByFollowers;
 import static app.searchBar.FilterUtils.filterByGenre;
 import static app.searchBar.FilterUtils.filterByLyrics;
@@ -120,6 +121,22 @@ public final class SearchBar {
 
                 if (filters.getOwner() != null) {
                     entries = filterByOwner(entries, filters.getOwner());
+                }
+
+                break;
+            case "album":
+                entries = new ArrayList<>(Admin.getInstance().getAlbums());
+
+                if (filters.getName() != null) {
+                    entries = filterByName(entries, filters.getName());
+                }
+
+                if (filters.getOwner() != null) {
+                    entries = filterByOwner(entries, filters.getArtist());
+                }
+
+                if (filters.getDescription() != null) {
+                    entries = filterByDescription(entries, filters.getDescription());
                 }
 
                 break;

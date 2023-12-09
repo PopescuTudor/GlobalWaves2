@@ -1,5 +1,6 @@
 package app;
 
+import app.audio.Collections.Album;
 import app.audio.Collections.Playlist;
 import app.audio.Collections.Podcast;
 import app.audio.Files.Episode;
@@ -11,6 +12,7 @@ import fileio.input.EpisodeInput;
 import fileio.input.PodcastInput;
 import fileio.input.SongInput;
 import fileio.input.UserInput;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,8 +22,11 @@ import java.util.List;
  * The type Admin.
  */
 public final class Admin {
+    @Getter
     private List<User> users = new ArrayList<>();
+    @Getter
     private List<Artist> artists = new ArrayList<>();
+    @Getter
     private List<Host> hosts = new ArrayList<>();
     private List<Song> songs = new ArrayList<>();
     private List<Podcast> podcasts = new ArrayList<>();
@@ -95,6 +100,15 @@ public final class Admin {
     }
 
     /**
+     * Add songs.
+     *
+     * @param songs the songs
+     */
+    public void addSongs(final List<Song> songs) {
+        this.songs.addAll(songs);
+    }
+
+    /**
      * Gets podcasts.
      *
      * @return the podcasts
@@ -114,6 +128,19 @@ public final class Admin {
             playlists.addAll(user.getPlaylists());
         }
         return playlists;
+    }
+
+    /**
+     * Gets albums.
+     *
+     * @return the albums
+     */
+    public List<Album> getAlbums() {
+        List<Album> albums = new ArrayList<>();
+        for (Artist artist : artists) {
+            albums.addAll(artist.getAlbums());
+        }
+        return albums;
     }
 
     /**
