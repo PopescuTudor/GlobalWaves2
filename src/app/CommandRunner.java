@@ -689,15 +689,16 @@ public final class CommandRunner {
                             + " has been added successfully.";
                 }
                 case "artist" -> {
-                    Artist artist = new Artist(commandInput.getUsername(), commandInput.getAge()
-                            , commandInput.getCity());
+                    Artist artist = new Artist(commandInput.getUsername(), commandInput.getUsername(),
+                            commandInput.getAge(), commandInput.getCity());
                     Admin.getInstance().addNewArtist(artist);
                     message = "The username " + commandInput.getUsername()
                                 + " has been added successfully.";
                 }
                 case "host" -> {
-                    Host host = new Host(commandInput.getUsername(), commandInput.getAge()
-                            , commandInput.getCity());
+                    Host host = new Host(commandInput.getUsername(), commandInput.getUsername(),
+                            commandInput.getAge(),
+                            commandInput.getCity());
                     Admin.getInstance().addNewHost(host);
                     message = "The username " + commandInput.getUsername()
                             + " has been added successfully.";
@@ -742,6 +743,7 @@ public final class CommandRunner {
      */
     public static ObjectNode printCurrentPage(final CommandInput commandInput) {
         User user = Admin.getInstance().getUser(commandInput.getUsername());
+
         String message = user.printCurrentPage();
 
         ObjectNode objectNode = objectMapper.createObjectNode();
@@ -808,4 +810,5 @@ public final class CommandRunner {
         objectNode.put("message", message);
 
         return objectNode;
+    }
 }

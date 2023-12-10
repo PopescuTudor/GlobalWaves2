@@ -4,6 +4,7 @@ import app.Admin;
 import app.audio.Collections.Album;
 import app.audio.Collections.Playlist;
 import app.audio.Files.Song;
+import app.audio.LibraryEntry;
 import app.community.Event;
 import app.community.Merch;
 import app.player.Player;
@@ -12,8 +13,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 @Getter
-public class Artist {
-
+public class Artist extends LibraryEntry{
     private String username;
     private int age;
     private String city;
@@ -23,7 +23,8 @@ public class Artist {
 
 
     // albums, events, merchandise
-    public Artist(final String username, final int age, final String city) {
+    public Artist(final String name, final String username, final int age, final String city) {
+        super(name);
         this.username = username;
         this.age = age;
         this.city = city;
@@ -149,6 +150,29 @@ public class Artist {
         }
 
         return message;
+    }
+
+    /**
+     * print artist's page
+     *
+     * @return the string
+     */
+    public String printArtistPage() {
+        ArrayList<String> albums = new ArrayList<>();
+        ArrayList<String> merch = new ArrayList<>();
+        ArrayList<String> events = new ArrayList<>();
+
+        for (Album album : this.albums) {
+            albums.add(album.printAlbum());
+        }
+        for (Merch merchItem : this.merch) {
+            merch.add(merchItem.printMerch());
+        }
+        for (Event event : this.events) {
+            events.add(event.printEvent());
+        }
+        return String.format("Albums:\n\t%s\n\nMerch:\n\t%s\n\nEvents:\n\t%s",
+                albums, merch, events);
     }
 
 }

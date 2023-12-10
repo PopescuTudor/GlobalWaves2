@@ -140,6 +140,22 @@ public final class SearchBar {
                 }
 
                 break;
+            case "artist":
+                entries = new ArrayList<>(Admin.getInstance().getArtists());
+
+                if(filters.getName() != null) {
+                    entries = filterByName(entries, filters.getName());
+                }
+
+                break;
+            case "host":
+                entries = new ArrayList<>(Admin.getInstance().getHosts());
+
+                if (filters.getName() != null) {
+                    entries = filterByName(entries, filters.getName());
+                }
+
+                break;
             default:
                 entries = new ArrayList<>();
         }

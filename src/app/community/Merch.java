@@ -13,4 +13,15 @@ public class Merch {
         this.description = description;
         this.price = price;
     }
+
+    /**
+     * method to print merch item as required by printArtistPage
+     *
+     * @return String
+     */
+    public String printMerch() {
+        String merch ="";
+        merch += name + " - " + price + ":\n\t" + description;
+        return merch;
+    }
 }

@@ -11,4 +11,15 @@ public class Announcement {
         this.name = name;
         this.description = description;
     }
+
+    /**
+     * method to print announcement as required by printHostPage
+     *
+     * @return String
+     */
+    public String printAnnouncement() {
+        String announcement = "";
+        announcement += name + ":\n\t" + description + "\n";
+        return announcement;
+    }
 }

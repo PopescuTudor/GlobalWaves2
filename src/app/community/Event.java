@@ -13,4 +13,15 @@ public class Event {
         this.description = description;
         this.date = date;
     }
+
+    /**
+     * method to print event as required by printArtistPage
+     *
+     * @return String
+     */
+    public String printEvent() {
+        String event = "";
+        event += name + " - " + date + ":\n\t" + description;
+        return event;
+    }
 }

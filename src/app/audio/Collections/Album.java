@@ -51,4 +51,15 @@ public final class Album extends AudioCollection {
         return this.songs.get(index);
     }
 
+    /**
+     * method to print album in format required for printArtistsPage
+     *
+     * @return String
+     */
+    public String printAlbum() {
+        String album = "";
+        album += this.getName();
+        return album;
+    }
+
 }

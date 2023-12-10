@@ -2,6 +2,8 @@ package app.audio.Collections;
 
 import app.audio.Files.AudioFile;
 import app.audio.Files.Episode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Podcast extends AudioCollection {
@@ -24,5 +26,21 @@ public final class Podcast extends AudioCollection {
     @Override
     public AudioFile getTrackByIndex(final int index) {
         return episodes.get(index);
+    }
+
+    /**
+     * method to print podcast in format required for printHostPage
+     *
+     * @return String
+     */
+    public String printPodcast() {
+        String podcast = "";
+        ArrayList<String> episodes = new ArrayList<>();
+        podcast += this.getName() + ":\n\t";
+        for (Episode episode : this.episodes) {
+            episodes.add(episode.getName() + " - " + episode.getDescription());
+        }
+        podcast += episodes;
+        return podcast;
     }
 }

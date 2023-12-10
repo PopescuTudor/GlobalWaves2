@@ -1,5 +1,6 @@
 package app.user;
 
+import app.Admin;
 import app.audio.Collections.AudioCollection;
 import app.audio.Collections.Playlist;
 import app.audio.Collections.PlaylistOutput;
@@ -40,6 +41,8 @@ public class User {
     private boolean lastSearched;
     @Getter
     private String currentPage;
+    @Getter
+    private String currentPageUsername;
 
     /**
      * Instantiates a new User.
@@ -60,6 +63,7 @@ public class User {
         lastSearched = false;
         status = true;
         currentPage = "HomePage";
+        currentPageUsername = null;
     }
 
     /**
@@ -108,6 +112,19 @@ public class User {
 
         if (selected == null) {
             return "The selected ID is too high.";
+        }
+        // check if the selected item is a host or an artist
+        Artist artist = Admin.getInstance().getArtist(selected.getName());
+        Host host = Admin.getInstance().getHost(selected.getName());
+        if (artist != null) {
+            currentPage = "ArtistPage";
+            currentPageUsername = artist.getUsername();
+            return "Successfully selected %s's page.".formatted(selected.getName());
+        }
+        if (host != null) {
+            currentPage = "HostPage";
+            currentPageUsername = host.getUsername();
+            return "Successfully selected %s's page.".formatted(selected.getName());
         }
 
         return "Successfully selected %s.".formatted(selected.getName());
@@ -505,13 +522,25 @@ public class User {
      * @return current page as a string
      */
     public String printCurrentPage() {
-        switch (currentPage) {
-            case "HomePage" -> {
-                return String.format("Liked songs:\n\t%s\n\nFollowed playlists:\n\t%s",
-                        showPreferredSongs(), showPlaylistsNames());
-            }
-            default -> {
-                return currentPage;
+        if (!status) {
+            return username + " is offline.";
+        } else {
+            switch (currentPage) {
+                case "HomePage" -> {
+                    return String.format("Liked songs:\n\t%s\n\nFollowed playlists:\n\t%s",
+                            showPreferredSongs(), showPlaylistsNames());
+                }
+                case "ArtistPage" -> {
+                    Artist artist = Admin.getInstance().getArtist(currentPageUsername);
+                    return artist.printArtistPage();
+                }
+                case "HostPage" -> {
+                    Host host = Admin.getInstance().getHost(currentPageUsername);
+                    return host.printHostPage();
+                }
+                default -> {
+                    return currentPage;
+                }
             }
         }
     }
