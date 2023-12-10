@@ -4,8 +4,10 @@ import app.audio.Collections.Album;
 import app.audio.Collections.AlbumOutput;
 import app.audio.Collections.Playlist;
 import app.audio.Collections.Podcast;
+import app.audio.Files.AudioFile;
 import app.audio.Files.Episode;
 import app.audio.Files.Song;
+import app.player.PlayerSource;
 import app.user.Artist;
 import app.user.Host;
 import app.user.User;
@@ -343,6 +345,49 @@ public final class Admin {
             allUsers.add(host.getUsername());
         }
         return allUsers;
+    }
+
+    /**
+     * delete user and its connections in the app
+     *
+     * @param username the user
+     */
+    public String deleteUser(final String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                users.remove(user);
+                return username + " was successfully deleted.";
+            }
+        }
+        for (Artist artist : artists) {
+            if (artist.getUsername().equals(username)) {
+                // check if someone is listening to a song of this artist
+                for (User user : users) {
+                    if (user.getPlayer().getSource() == null) {
+                        continue;
+                    }
+                    Song song = (Song) user.getPlayer().getSource().getAudioFile();
+                    if (song != null && song.getArtist().equals(username)) {
+                        return username + " can't be deleted.";
+                    }
+                }
+
+                // delete its songs and albums as well
+                songs.removeIf(song -> song.getArtist().equals(username));
+                for (User user : users) {
+                    user.getLikedSongs().removeIf(song -> song.getArtist().equals(username));
+                }
+                artists.remove(artist);
+                return username + " was successfully deleted.";
+            }
+        }
+        for (Host host : hosts) {
+            if (host.getUsername().equals(username)) {
+                hosts.remove(host);
+                return username + " was successfully deleted.";
+            }
+        }
+        return "The username " + username + " doesn't exist.";
     }
 
 }

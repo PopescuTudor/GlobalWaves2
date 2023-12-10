@@ -732,6 +732,23 @@ public final class CommandRunner {
     }
 
     /**
+     * deletes user and its connections in the app
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode deleteUser(CommandInput commandInput) {
+        String message = Admin.getInstance().deleteUser(commandInput.getUsername());
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+    /**
      * show albums of an artist
      *
      * @param commandInput the command input
@@ -823,6 +840,60 @@ public final class CommandRunner {
         objectNode.put("command", commandInput.getCommand());
         objectNode.put("user", commandInput.getUsername());
         objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+    /**
+     * Add announcement for a host
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode addAnnouncement(final CommandInput commandInput) {
+        Host host = Admin.getInstance().getHost(commandInput.getUsername());
+        User user = Admin.getInstance().getUser(commandInput.getUsername());
+        Artist artist = Admin.getInstance().getArtist(commandInput.getUsername());
+        String message;
+        if (host == null && user == null && artist == null) {
+            message = "The username " + commandInput.getUsername() + " doesn't exist.";
+        } else if (host == null) {
+            message = commandInput.getUsername() + " is not a host.";
+        } else {
+            message = host.addAnnouncement(commandInput.getName(), commandInput.getDescription());
+        }
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+    /**
+     * Deletes the announcement with the given name
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode removeAnnouncement(final CommandInput commandInput) {
+        Host host = Admin.getInstance().getHost(commandInput.getUsername());
+        User user = Admin.getInstance().getUser(commandInput.getUsername());
+        Artist artist = Admin.getInstance().getArtist(commandInput.getUsername());
+        String message;
+        if (host == null && user == null && artist == null) {
+            message = "The username " + commandInput.getUsername() + " doesn't exist.";
+        } else if (host == null) {
+            message = commandInput.getUsername() + " is not a host.";
+        } else {
+            message = host.removeAnnouncement(commandInput.getName());
+        }
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("user", commandInput.getUsername());
         objectNode.put("message", message);
 
         return objectNode;

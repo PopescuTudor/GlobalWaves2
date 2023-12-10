@@ -40,6 +40,42 @@ public class Host extends LibraryEntry {
     }
 
     /**
+     * Add announcement.
+     *
+     * @param announcement the announcement
+     */
+    public String addAnnouncement(final String name, final String description) {
+        // check for an announcement with the same name
+        for (final Announcement a : this.announcements) {
+            if (a.getName().equals(name)) {
+                return username + " has already added an announcement with this name.";
+            }
+        }
+
+        // add the announcement
+        this.announcements.add(new Announcement(name, description));
+
+        return username + " has successfully added new announcement.";
+    }
+
+    /**
+     * Removes announcement.
+     *
+     * @param name the name of the announcement
+     */
+    public String removeAnnouncement(final String name) {
+        // check for an announcement with the same name
+        for (final Announcement a : this.announcements) {
+            if (a.getName().equals(name)) {
+                this.announcements.remove(a);
+                return username + " has successfully deleted the announcement.";
+            }
+        }
+
+        return username + " has no announcement with the given name.";
+    }
+
+    /**
      * print host's page
      *
      * @return the string

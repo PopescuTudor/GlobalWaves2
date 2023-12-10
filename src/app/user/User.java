@@ -36,6 +36,7 @@ public class User {
     private ArrayList<Song> likedSongs;
     @Getter
     private ArrayList<Playlist> followedPlaylists;
+    @Getter
     private final Player player;
     private final SearchBar searchBar;
     private boolean lastSearched;
