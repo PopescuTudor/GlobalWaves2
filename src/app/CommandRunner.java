@@ -4,6 +4,7 @@ import app.audio.Collections.Album;
 import app.audio.Collections.AlbumOutput;
 import app.audio.Collections.PlaylistOutput;
 import app.audio.Collections.Podcast;
+import app.audio.Collections.PodcastOutput;
 import app.audio.Files.Episode;
 import app.audio.Files.Song;
 import app.player.PlayerStats;
@@ -18,6 +19,7 @@ import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The type Command runner.
@@ -895,6 +897,29 @@ public final class CommandRunner {
         objectNode.put("timestamp", commandInput.getTimestamp());
         objectNode.put("user", commandInput.getUsername());
         objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+    /**
+     * show podcasts of a host
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode showPodcasts(CommandInput commandInput) {
+        ArrayList<Podcast> podcasts = Objects.requireNonNull(
+                        Admin.getInstance().getHost(commandInput.getUsername()))
+                        .getPodcasts();
+        List<PodcastOutput> results = new ArrayList<>();
+        for (Podcast podcast : podcasts) {
+            results.add(new PodcastOutput(podcast));
+        }
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(results));
 
         return objectNode;
     }

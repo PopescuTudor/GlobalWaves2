@@ -40,7 +40,7 @@ public final class Podcast extends AudioCollection {
         for (Episode episode : this.episodes) {
             episodes.add(episode.getName() + " - " + episode.getDescription());
         }
-        podcast += episodes;
+        podcast += episodes + "\n";
         return podcast;
     }
 }

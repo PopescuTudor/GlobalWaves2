@@ -7,12 +7,13 @@ Starting audit...
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\Admin.java:110:43: 'songs' hides a field. [HiddenField]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\audio\Collections\AlbumOutput.java:6:8: Unused import - java.lang.reflect.Array. [UnusedImports]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\audio\Collections\Podcast.java:38:27: 'episodes' hides a field. [HiddenField]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:17:8: Unused import - org.checkerframework.checker.units.qual.A. [UnusedImports]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:698:9: 'if' is not followed by whitespace. [WhitespaceAfter]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:702:37: ',' is preceded with whitespace. [NoWhitespaceBefore]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:708: Line is longer than 100 characters (found 102). [LineLength]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:722:36: Inner assignments should be avoided. [InnerAssignment]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:739:41: Parameter commandInput should be final. [FinalParameters]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:18:8: Unused import - org.checkerframework.checker.units.qual.A. [UnusedImports]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:700:9: 'if' is not followed by whitespace. [WhitespaceAfter]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:704:37: ',' is preceded with whitespace. [NoWhitespaceBefore]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:710: Line is longer than 100 characters (found 102). [LineLength]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:724:36: Inner assignments should be avoided. [InnerAssignment]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:741:41: Parameter commandInput should be final. [FinalParameters]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\CommandRunner.java:909:43: Parameter commandInput should be final. [FinalParameters]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\community\Merch.java:23:22: '=' is not followed by whitespace. [WhitespaceAround]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\searchBar\SearchBar.java:151:17: 'if' is not followed by whitespace. [WhitespaceAfter]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\Artist.java:5:8: Unused import - app.audio.Collections.Playlist. [UnusedImports]
@@ -34,4 +35,4 @@ Starting audit...
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\main\Main.java:80: Line is longer than 100 characters (found 107). [LineLength]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\main\Main.java:83: Line is longer than 100 characters (found 180). [LineLength]
 Audit done.
-Checkstyle ends with 34 errors.
+Checkstyle ends with 35 errors.
