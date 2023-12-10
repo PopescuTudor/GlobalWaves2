@@ -315,7 +315,7 @@ public final class Admin {
     /**
      * show albuums of an artist
      *
-     * @param artist the artist
+     * @param artistUsername the artist
      */
     public ArrayList<Album> getAlbumsOfArtist(final String artistUsername) {
         for (Artist artist : artists) {
@@ -324,6 +324,25 @@ public final class Admin {
             }
         }
         return null;
+    }
+
+    /**
+     * get all users' names
+     *
+     * @return List<String>
+     */
+    public List<String> getAllUsers() {
+        List<String> allUsers = new ArrayList<>();
+        for (User user : users) {
+            allUsers.add(user.getUsername());
+        }
+        for (Artist artist : artists) {
+            allUsers.add(artist.getUsername());
+        }
+        for (Host host : hosts) {
+            allUsers.add(host.getUsername());
+        }
+        return allUsers;
     }
 
 }

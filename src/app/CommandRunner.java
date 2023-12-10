@@ -570,6 +570,22 @@ public final class CommandRunner {
     }
 
     /**
+     * Gets all users on the platform
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode getAllUsers(final CommandInput commandInput) {
+        List<String> allUsers = Admin.getInstance().getAllUsers();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(allUsers));
+
+        return objectNode;
+    }
+
+    /**
      * Adds a new podcast for a host
      *
      * @param commandInput the command input
