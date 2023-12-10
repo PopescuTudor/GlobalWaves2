@@ -780,4 +780,32 @@ public final class CommandRunner {
 
         return objectNode;
     }
+
+    /**
+     * Add merch item for an Artist
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode addMerch(final CommandInput commandInput) {
+        Artist artist = Admin.getInstance().getArtist(commandInput.getUsername());
+        User user = Admin.getInstance().getUser(commandInput.getUsername());
+        Host host = Admin.getInstance().getHost(commandInput.getUsername());
+        String message;
+
+        if (artist == null && user == null && host == null) {
+            message = "The username " + commandInput.getUsername() + " doesn't exist.";
+        } else if (artist == null) {
+            message = commandInput.getUsername() + " is not an artist.";
+        } else {
+            message = artist.addMerch(commandInput.getName(), commandInput.getDescription(),
+                    commandInput.getPrice());
+        }
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
 }

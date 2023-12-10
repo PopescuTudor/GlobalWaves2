@@ -117,4 +117,38 @@ public class Artist {
 
         return message;
     }
+
+    /**
+     * add merch item for the artist
+     *
+     * @param name the name of the merch item
+     * @param description the description of the merch item
+     * @param price the price of the merch item
+     */
+    public String addMerch(final String name, final String description, final int price) {
+        String message = null;
+
+        // check for a merch item with the same name
+        for (final Merch m : this.merch) {
+            if (m.getName().equals(name)) {
+                message = username + " has merchandise with the same name.";
+                break;
+            }
+        }
+        // check for negative price
+        if (message == null) {
+            if (price < 0) {
+                message = "Price for merchandise can not be negative.";
+            }
+        }
+        // add merch item
+        if (message == null) {
+            final Merch merch = new Merch(name, description, price);
+            this.merch.add(merch);
+            message = username + " has added new merchandise successfully.";
+        }
+
+        return message;
+    }
+
 }

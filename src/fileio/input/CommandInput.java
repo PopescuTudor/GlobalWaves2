@@ -21,6 +21,7 @@ public final class CommandInput {
     private Integer releaseYear; // pentru add album
     private String description; // pentru add album
     private String date; // pentru add event
+    private Integer price; // pentru add merch
 
     public CommandInput() {
     }
@@ -169,6 +170,14 @@ public final class CommandInput {
         this.date = date;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(final Integer price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "CommandInput{"
@@ -190,6 +199,7 @@ public final class CommandInput {
                 + ", releaseYear=" + releaseYear
                 + ", description='" + description + '\''
                 + ", date='" + date + '\''
+                + ", price=" + price + '\''
                 + '}';
     }
 }
