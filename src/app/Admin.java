@@ -112,6 +112,17 @@ public final class Admin {
     }
 
     /**
+     * remove songs from admin list contained in an album
+     *
+     * @param album the album
+     */
+    public void removeSongs(final Album album) {
+        for (Song song : album.getSongs()) {
+            songs.remove(song);
+        }
+    }
+
+    /**
      * Gets podcasts.
      *
      * @return the podcasts
@@ -355,6 +366,12 @@ public final class Admin {
     public String deleteUser(final String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
+                // delete its playlists
+                for (Playlist playlist : user.getPlaylists()) {
+                    for (User u : users) {
+                        u.getFollowedPlaylists().remove(playlist);
+                    }
+                }
                 users.remove(user);
                 return username + " was successfully deleted.";
             }

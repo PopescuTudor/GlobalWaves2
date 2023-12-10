@@ -73,6 +73,52 @@ public class Artist extends LibraryEntry{
         return message;
     }
 
+    /**
+     * remove album
+     *
+     * @param name the name of the album
+     */
+    public String removeAlbum(final String name) {
+        String message = null;
+
+        // check for an album with the same name
+        for (final Album a : this.albums) {
+            if (a.getName().equals(name)) {
+
+                // check for any user that might listen to a song from the album
+                for (final User user : Admin.getInstance().getUsers()) {
+                    if(user.getPlayer().getSource() == null) {
+                        continue;
+                    }
+                    Song song = (Song) user.getPlayer().getSource().getAudioFile();
+                    if (song.getAlbum().equals(name)) {
+                        message = username + " can't delete this album.";
+                        return message;
+                    }
+                    // check for any playlist that might contain a song from the album
+                    for (Playlist playlist : user.getPlaylists()) {
+                        for (Song s : playlist.getSongs()) {
+                            if (s.getAlbum().equals(name)) {
+                                message = username + " can't delete this album.";
+                                return message;
+                            }
+                        }
+                    }
+                }
+                // remove all songs from the album from the admin's list
+                Admin.getInstance().removeSongs(a);
+                this.albums.remove(a);
+                message = username + " deleted the album successfully.";
+                break;
+            }
+        }
+        if (message == null) {
+            message = username + " doesn't have an album with the given name.";
+        }
+
+        return message;
+    }
+
     private static boolean hasDuplicates(ArrayList<Song> songs) {
         for (int i = 0; i < songs.size(); i++) {
             for (int j = i + 1; j < songs.size(); j++) {

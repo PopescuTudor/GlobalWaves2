@@ -63,7 +63,7 @@ public class User {
         searchBar = new SearchBar(username);
         lastSearched = false;
         status = true;
-        currentPage = "HomePage";
+        currentPage = "Home";
         currentPageUsername = null;
     }
 
@@ -542,7 +542,7 @@ public class User {
             return username + " is offline.";
         } else {
             switch (currentPage) {
-                case "HomePage" -> {
+                case "Home" -> {
                     return String.format("Liked songs:\n\t%s\n\nFollowed playlists:\n\t%s",
                             showPreferredSongs(), showPlaylistsNames());
                 }
@@ -571,8 +571,8 @@ public class User {
      * @return the output message
      */
     public String changePage(final String nextPage) {
-        if (nextPage.equals("HomePage")) {
-            currentPage = "HomePage";
+        if (nextPage.equals("Home")) {
+            currentPage = "Home";
             currentPageUsername = null;
             return username + " accessed " + nextPage + " successfully.";
         }

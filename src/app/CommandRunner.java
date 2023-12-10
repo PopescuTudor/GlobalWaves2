@@ -667,7 +667,32 @@ public final class CommandRunner {
         return objectNode;
     }
 
+    /**
+     * Remove album for artist
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode removeAlbum(final CommandInput commandInput) {
+        Artist artist = Admin.getInstance().getArtist(commandInput.getUsername());
+        User user = Admin.getInstance().getUser(commandInput.getUsername());
+        Host host = Admin.getInstance().getHost(commandInput.getUsername());
+        String message;
+        if (artist == null && user == null && host == null) {
+            message = "The username " + commandInput.getUsername() + " doesn't exist.";
+        } else if (artist == null) {
+            message = commandInput.getUsername() + " is not an artist.";
+        } else {
+            message = artist.removeAlbum(commandInput.getName());
+        }
 
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
 
     /**
      * Adds a new user
@@ -726,8 +751,8 @@ public final class CommandRunner {
         }
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("command", commandInput.getCommand());
-        objectNode.put("timestamp", commandInput.getTimestamp());
         objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
         objectNode.put("message", message);
 
         return objectNode;
@@ -782,8 +807,9 @@ public final class CommandRunner {
         String message = user.printCurrentPage();
 
         ObjectNode objectNode = objectMapper.createObjectNode();
-        objectNode.put("command", commandInput.getCommand());
         objectNode.put("user", commandInput.getUsername());
+        objectNode.put("command", commandInput.getCommand());
+
         objectNode.put("timestamp", commandInput.getTimestamp());
         objectNode.put("message", message);
 
@@ -932,7 +958,7 @@ public final class CommandRunner {
     public static ObjectNode changePage(CommandInput commandInput) {
         User user = Admin.getInstance().getUser(commandInput.getUsername());
         String message;
-        if (!commandInput.getNextPage().equals("HomePage")
+        if (!commandInput.getNextPage().equals("Home")
                 && !commandInput.getNextPage().equals("LikedContent")) {
             message = commandInput.getUsername() + " is trying to access a non-existent page.";
         } else {

@@ -80,7 +80,7 @@ public final class Main {
         LibraryInput library = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\"
                         + "library/library.json"),
                 LibraryInput.class);
-        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test06_etapa2_repeat.json"), CommandInput[].class);
+        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test07_etapa2_repeat_error.json"), CommandInput[].class);
 
         ArrayNode outputs = objectMapper.createArrayNode();
 
@@ -126,6 +126,7 @@ public final class Main {
                 case "addUser" -> outputs.add(CommandRunner.addUser(command));
                 case "deleteUser" -> outputs.add(CommandRunner.deleteUser(command));
                 case "addAlbum" -> outputs.add(CommandRunner.addAlbum(command));
+                case "removeAlbum" -> outputs.add(CommandRunner.removeAlbum(command));
                 case "showAlbums" -> outputs.add(CommandRunner.showAlbums(command));
                 case "showPodcasts" -> outputs.add(CommandRunner.showPodcasts(command));
                 case "printCurrentPage" -> outputs.add(CommandRunner.printCurrentPage(command));
