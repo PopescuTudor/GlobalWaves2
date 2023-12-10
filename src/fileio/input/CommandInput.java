@@ -22,6 +22,7 @@ public final class CommandInput {
     private String description; // pentru add album
     private String date; // pentru add event
     private Integer price; // pentru add merch
+    private String nextPage; //pentru changePage
 
     public CommandInput() {
     }
@@ -178,6 +179,14 @@ public final class CommandInput {
         this.price = price;
     }
 
+    public String getNextPage() {
+        return nextPage;
+    }
+
+    public void setNextPage(final String nextPage) {
+        this.nextPage = nextPage;
+    }
+
     @Override
     public String toString() {
         return "CommandInput{"
@@ -200,6 +209,7 @@ public final class CommandInput {
                 + ", description='" + description + '\''
                 + ", date='" + date + '\''
                 + ", price=" + price + '\''
+                + ", nextPage=" + nextPage
                 + '}';
     }
 }

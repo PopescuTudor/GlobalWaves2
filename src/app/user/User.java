@@ -479,6 +479,20 @@ public class User {
     }
 
     /**
+     * Show preferred songs with artist name in array list.
+     *
+     * @return the array list
+     */
+    public ArrayList<String> showPreferredSongsWithArtist() {
+        ArrayList<String> results = new ArrayList<>();
+        for (Song song : likedSongs) {
+            results.add(song.getName() + " - " + song.getArtist());
+        }
+
+        return results;
+    }
+
+    /**
      * Gets preferred genre.
      *
      * @return the preferred genre
@@ -532,6 +546,10 @@ public class User {
                     return String.format("Liked songs:\n\t%s\n\nFollowed playlists:\n\t%s",
                             showPreferredSongs(), showPlaylistsNames());
                 }
+                case "LikedContent" -> {
+                    return String.format("Liked songs:\n\t%s\n\nFollowed playlists:\n\t%s",
+                            showPreferredSongsWithArtist(), showPlaylistsNamesWithOwner());
+                }
                 case "ArtistPage" -> {
                     Artist artist = Admin.getInstance().getArtist(currentPageUsername);
                     return artist.printArtistPage();
@@ -548,6 +566,25 @@ public class User {
     }
 
     /**
+     * changes to the next page
+     *
+     * @return the output message
+     */
+    public String changePage(final String nextPage) {
+        if (nextPage.equals("HomePage")) {
+            currentPage = "HomePage";
+            currentPageUsername = null;
+            return username + " accessed " + nextPage + " successfully.";
+        }
+        if (nextPage.equals("LikedContent")) {
+            currentPage = "LikedContent";
+            currentPageUsername = null;
+            return username + " accessed " + nextPage + " successfully.";
+        }
+        return "The specified page does not exist.";
+    }
+
+    /**
      * show the playlists' names that the user follows
      *
      * @return the playlists' names that the user follows
@@ -556,6 +593,20 @@ public class User {
         ArrayList<String> results = new ArrayList<>();
         for (Playlist playlist : followedPlaylists) {
             results.add(playlist.getName());
+        }
+
+        return results;
+    }
+
+    /**
+     * show the followed playlists' names with owner
+     *
+     * @return the playlists' names with owner as ArrayList of String
+     */
+    public ArrayList<String> showPlaylistsNamesWithOwner() {
+        ArrayList<String> results = new ArrayList<>();
+        for (Playlist playlist : followedPlaylists) {
+            results.add(playlist.getName() + " - " + playlist.getOwner());
         }
 
         return results;

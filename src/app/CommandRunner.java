@@ -923,4 +923,28 @@ public final class CommandRunner {
 
         return objectNode;
     }
+
+    /**
+     * changes the page for a normal user
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode changePage(CommandInput commandInput) {
+        User user = Admin.getInstance().getUser(commandInput.getUsername());
+        String message;
+        if (!commandInput.getNextPage().equals("HomePage")
+                && !commandInput.getNextPage().equals("LikedContent")) {
+            message = commandInput.getUsername() + " is trying to access a non-existent page.";
+        } else {
+            message = user.changePage(commandInput.getNextPage());
+        }
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
 }
