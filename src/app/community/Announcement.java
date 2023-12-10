@@ -1,4 +1,4 @@
-package app.audio.Files;
+package app.community;
 
 import lombok.Getter;
 

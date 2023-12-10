@@ -4,6 +4,8 @@ import app.Admin;
 import app.audio.Collections.Album;
 import app.audio.Collections.Playlist;
 import app.audio.Files.Song;
+import app.community.Event;
+import app.community.Merch;
 import app.player.Player;
 import app.searchBar.SearchBar;
 import lombok.Getter;
@@ -16,6 +18,8 @@ public class Artist {
     private int age;
     private String city;
     private ArrayList<Album> albums;
+    private ArrayList<Event> events;
+    private ArrayList<Merch> merch;
 
 
     // albums, events, merchandise
@@ -24,6 +28,8 @@ public class Artist {
         this.age = age;
         this.city = city;
         this.albums = new ArrayList<>();
+        this.events = new ArrayList<>();
+        this.merch = new ArrayList<>();
     }
 
     /**
@@ -75,5 +81,40 @@ public class Artist {
             }
         }
         return false;
+    }
+
+    /**
+     * Add event for the artist
+     *
+     * @param name the name of the event
+     * @param description the description of the event
+     * @param date the date of the event
+     */
+    public String addEvent(final String name, final String description, final String date) {
+        String message = null;
+        String DATE_REGEX =
+                "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\\d\\d|20[0-2][0-3])$";
+        // check for an event with the same name
+        for (final Event e : this.events) {
+            if (e.getName().equals(name)) {
+                message = username + " has another event with the same name.";
+                break;
+            }
+        }
+        if (message == null) {
+            // check for a valid date
+            if (!date.matches(DATE_REGEX)) {
+                message = "Event for " + username + " does not have a valid date.";
+            }
+        }
+
+        // add event
+        if (message == null) {
+            final Event event = new Event(name, description, date);
+            this.events.add(event);
+            message = username + " has added new event successfully.";
+        }
+
+        return message;
     }
 }

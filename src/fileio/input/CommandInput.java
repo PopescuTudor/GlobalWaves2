@@ -20,6 +20,7 @@ public final class CommandInput {
     private String city; // pentru add user
     private Integer releaseYear; // pentru add album
     private String description; // pentru add album
+    private String date; // pentru add event
 
     public CommandInput() {
     }
@@ -160,6 +161,14 @@ public final class CommandInput {
         this.description = description;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(final String date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "CommandInput{"
@@ -180,6 +189,7 @@ public final class CommandInput {
                 + ", city='" + city + '\''
                 + ", releaseYear=" + releaseYear
                 + ", description='" + description + '\''
+                + ", date='" + date + '\''
                 + '}';
     }
 }

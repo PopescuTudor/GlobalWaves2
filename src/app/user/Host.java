@@ -2,7 +2,7 @@ package app.user;
 
 import app.Admin;
 import app.audio.Collections.Podcast;
-import app.audio.Files.Announcement;
+import app.community.Announcement;
 import lombok.Getter;
 
 import java.util.ArrayList;
