@@ -423,6 +423,13 @@ public final class Admin {
                         return username + " can't be deleted.";
                     }
                 }
+                // check that someone is looking at host page
+                for (User user : users) {
+                    if (user.getCurrentPageUsername() != null
+                        && user.getCurrentPageUsername().equals(username)) {
+                        return username + " can't be deleted.";
+                    }
+                }
                 hosts.remove(host);
                 return username + " was successfully deleted.";
             }
