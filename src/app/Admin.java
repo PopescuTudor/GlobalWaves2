@@ -132,6 +132,15 @@ public final class Admin {
     }
 
     /**
+     * remove podcast from admin list
+     *
+     * @param podcast the podcast
+     */
+    public void removePodcast(final Podcast podcast) {
+        podcasts.remove(podcast);
+    }
+
+    /**
      * Gets playlists.
      *
      * @return the playlists
@@ -370,7 +379,11 @@ public final class Admin {
                 for (Playlist playlist : user.getPlaylists()) {
                     for (User u : users) {
                         u.getFollowedPlaylists().remove(playlist);
+                        playlist.decreaseFollowers();
                     }
+                }
+                for (Playlist playlist :user.getFollowedPlaylists()) {
+                    playlist.decreaseFollowers();
                 }
                 users.remove(user);
                 return username + " was successfully deleted.";
@@ -400,6 +413,16 @@ public final class Admin {
         }
         for (Host host : hosts) {
             if (host.getUsername().equals(username)) {
+                // check if someone is listening to a podcast of this host
+                for (User user : users) {
+                    if (user.getPlayer().getSource() == null) {
+                        continue;
+                    }
+                    Podcast podcast = (Podcast) user.getPlayer().getSource().getAudioCollection();
+                    if (podcast != null && podcast.getOwner().equals(username)) {
+                        return username + " can't be deleted.";
+                    }
+                }
                 hosts.remove(host);
                 return username + " was successfully deleted.";
             }

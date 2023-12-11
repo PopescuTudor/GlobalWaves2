@@ -40,6 +40,32 @@ public class Host extends LibraryEntry {
     }
 
     /**
+     * Removes podcast.
+     *
+     * @param name the name of the podcast
+     */
+    public String removePodcast(final String name) {
+        // check for a podcast with the same name
+        for (final Podcast p : this.podcasts) {
+            if (p.getName().equals(name)) {
+                // check if the podcast is loaded in the player
+                for (final User u : Admin.getInstance().getUsers()) {
+                    if (u.getPlayer().getSource() != null) {
+                        if (u.getPlayer().getSource().getAudioFile().getName().equals(name)) {
+                            return username + " can't delete this podcast.";
+                        }
+                    }
+                }
+                this.podcasts.remove(p);
+                Admin.getInstance().removePodcast(p);
+                return username + " deleted the podcast successfully.";
+            }
+        }
+
+        return username + " doesn't have a podcast with the given name.";
+    }
+
+    /**
      * Add announcement.
      *
      * @param announcement the announcement

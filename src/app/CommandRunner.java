@@ -626,6 +626,33 @@ public final class CommandRunner {
     }
 
     /**
+     * Removes a podcast for a host
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode removePodcast(final CommandInput commandInput) {
+        Host host = Admin.getInstance().getHost(commandInput.getUsername());
+        User user = Admin.getInstance().getUser(commandInput.getUsername());
+        Artist artist = Admin.getInstance().getArtist(commandInput.getUsername());
+        String message;
+        if (host == null && user == null && artist == null) {
+            message = "The username " + commandInput.getUsername() + " doesn't exist.";
+        } else if (host == null) {
+            message = commandInput.getUsername() + " is not a host.";
+        } else {
+            message = host.removePodcast(commandInput.getName());
+        }
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+    /**
      * Add a new album for artist
      *
      * @param commandInput the command input
