@@ -166,6 +166,32 @@ public class Artist extends LibraryEntry{
     }
 
     /**
+     * Removes event for the artist
+     *
+     * @param name the name of the event
+     */
+    public String removeEvent(final String name) {
+        String message = null;
+
+        // check for an event with the same name
+        if (this.events != null) {
+
+            for (final Event e : this.events) {
+                if (e.getName().equals(name)) {
+                    this.events.remove(e);
+                    message = username + " deleted the event successfully.";
+                    break;
+                }
+            }
+        }
+        if (message == null) {
+            message = username + " doesn't have an event with the given name.";
+        }
+
+        return message;
+    }
+
+    /**
      * add merch item for the artist
      *
      * @param name the name of the merch item

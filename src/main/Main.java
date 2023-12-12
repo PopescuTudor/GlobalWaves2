@@ -80,7 +80,7 @@ public final class Main {
         LibraryInput library = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\"
                         + "library/library.json"),
                 LibraryInput.class);
-        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test08_etapa2_searchHost_printCurrentPage.json"), CommandInput[].class);
+        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test10_etapa2_next_prev_forward_backward.json"), CommandInput[].class);
 
         ArrayNode outputs = objectMapper.createArrayNode();
 
@@ -133,6 +133,7 @@ public final class Main {
                 case "printCurrentPage" -> outputs.add(CommandRunner.printCurrentPage(command));
                 case "changePage" -> outputs.add(CommandRunner.changePage(command));
                 case "addEvent" -> outputs.add(CommandRunner.addEvent(command));
+                case "removeEvent" -> outputs.add(CommandRunner.removeEvent(command));
                 case "addMerch" -> outputs.add(CommandRunner.addMerch(command));
                 default -> System.out.println("Invalid command " + commandName);
             }
