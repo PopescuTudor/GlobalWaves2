@@ -51,7 +51,7 @@ public class Host extends LibraryEntry {
                 // check if the podcast is loaded in the player
                 for (final User u : Admin.getInstance().getUsers()) {
                     if (u.getPlayer().getSource() != null) {
-                        if (u.getPlayer().getSource().getAudioFile().getName().equals(name)) {
+                        if (u.getPlayer().getSource().getAudioCollection().getName().equals(name)) {
                             return username + " can't delete this podcast.";
                         }
                     }

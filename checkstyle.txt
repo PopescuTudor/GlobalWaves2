@@ -34,7 +34,7 @@ Starting audit...
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\Host.java:110:27: 'podcasts' hides a field. [HiddenField]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\Host.java:111:27: 'announcements' hides a field. [HiddenField]
 [ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\User.java:16:8: Unused import - lombok.Setter. [UnusedImports]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\main\Main.java:80: Line is longer than 100 characters (found 107). [LineLength]
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\main\Main.java:83: Line is longer than 100 characters (found 180). [LineLength]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\main\Main.java:80: Line is longer than 100 characters (found 109). [LineLength]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\main\Main.java:83: Line is longer than 100 characters (found 182). [LineLength]
 Audit done.
 Checkstyle ends with 37 errors.
