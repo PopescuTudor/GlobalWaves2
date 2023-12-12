@@ -2,6 +2,7 @@ package app;
 
 import app.audio.Collections.Album;
 import app.audio.Collections.AlbumOutput;
+import app.audio.Collections.AudioCollection;
 import app.audio.Collections.Playlist;
 import app.audio.Collections.Podcast;
 import app.audio.Files.AudioFile;
@@ -416,8 +417,8 @@ public final class Admin {
                     if (user.getPlayer().getSource() == null) {
                         continue;
                     }
-                    Song song = (Song) user.getPlayer().getSource().getAudioFile();
-                    if (song != null && song.getArtist().equals(username)) {
+                    AudioFile song = user.getPlayer().getSource().getAudioFile();
+                    if (song != null && song.matchesArtist(username)) {
                         return username + " can't be deleted.";
                     }
                 }
@@ -438,8 +439,8 @@ public final class Admin {
                     if (user.getPlayer().getSource() == null) {
                         continue;
                     }
-                    Podcast podcast = (Podcast) user.getPlayer().getSource().getAudioCollection();
-                    if (podcast != null && podcast.getOwner().equals(username)) {
+                    AudioCollection podcast = user.getPlayer().getSource().getAudioCollection();
+                    if (podcast != null && podcast.matchesOwner(username)) {
                         return username + " can't be deleted.";
                     }
                 }
