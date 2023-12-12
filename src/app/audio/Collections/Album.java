@@ -62,4 +62,16 @@ public final class Album extends AudioCollection {
         return album;
     }
 
+    /**
+     * method to get total like in album
+     *
+     * @return int
+     */
+    public int getLikes() {
+        int totalLikes = 0;
+        for (final Song song : this.songs) {
+            totalLikes += song.getLikes();
+        }
+        return totalLikes;
+    }
 }

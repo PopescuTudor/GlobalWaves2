@@ -526,6 +526,22 @@ public final class CommandRunner {
     }
 
     /**
+     * get top 5 albums
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode getTop5Albums(final CommandInput commandInput) {
+        List<String> albums = Admin.getInstance().getTop5Albums();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(albums));
+
+        return objectNode;
+    }
+
+    /**
      * Switch connection status of a user
      *
      * @param commandInput the command input

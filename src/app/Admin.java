@@ -272,6 +272,26 @@ public final class Admin {
     }
 
     /**
+     * get top 5 albums
+     *
+     * @return List<String> names of top 5 albums
+     */
+    public List<String> getTop5Albums() {
+        List<Album> sortedAlbums = new ArrayList<>(getAlbums());
+        sortedAlbums.sort(Comparator.comparingInt(Album::getLikes).reversed());
+        List<String> topAlbums = new ArrayList<>();
+        int count = 0;
+        for (Album album : sortedAlbums) {
+            if (count >= LIMIT) {
+                break;
+            }
+            topAlbums.add(album.getName());
+            count++;
+        }
+        return topAlbums;
+    }
+
+    /**
      * Reset.
      */
     public void reset() {
