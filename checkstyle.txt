@@ -1,4 +1,4 @@
 Starting audit...
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\User.java:47:25: '5' is a magic number. [MagicNumber]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\User.java:503:27: '5' is a magic number. [MagicNumber]
 Audit done.
 Checkstyle ends with 1 errors.

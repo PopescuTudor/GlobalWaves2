@@ -44,8 +44,6 @@ public class User {
     @Getter
     private String currentPageUsername;
 
-    private int limit = 5;
-
     /**
      * Instantiates a new User.
      *
@@ -502,7 +500,7 @@ public class User {
      * @return array list of names
      */
      public ArrayList<String> showPreferredSongsSorted() {
-        int maxResults = limit;
+         int maxResults = 5;
         ArrayList<String> results = new ArrayList<>();
         ArrayList<Song> sortedSongs = new ArrayList<>(likedSongs);
         sortedSongs.sort((song1, song2) -> song2.getLikes() - song1.getLikes());
