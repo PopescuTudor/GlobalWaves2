@@ -106,6 +106,10 @@ public class Artist extends LibraryEntry {
                         }
                     }
                 }
+                //remove all songs from liked songs of all users
+                for (final User user : Admin.getInstance().getUsers()) {
+                    user.removeLikedSongsFromAlbum(a.getName());
+                }
                 // remove all songs from the album from the admin's list
                 Admin.getInstance().removeSongs(a);
                 this.albums.remove(a);
@@ -246,6 +250,21 @@ public class Artist extends LibraryEntry {
         }
         return String.format("Albums:\n\t%s\n\nMerch:\n\t%s\n\nEvents:\n\t%s",
                 printAlbums, printMerch, printEvents);
+    }
+
+    /**
+     * get total likes from all songs
+     *
+     * @return the total likes
+     */
+    public int getTotalLikes() {
+        int totalLikes = 0;
+        for (Song song : Admin.getInstance().getSongs()) {
+            if (song.getArtist().equals(this.username)) {
+                totalLikes += song.getLikes();
+            }
+        }
+        return totalLikes;
     }
 
 }

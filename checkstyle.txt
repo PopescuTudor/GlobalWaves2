@@ -1,4 +1,4 @@
 Starting audit...
-[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\User.java:147: Line has trailing spaces. [RegexpSingleline]
+[ERROR] D:\AN 3 SEM 1\POO\GlobalWaves2\.\src\app\user\User.java:47:25: '5' is a magic number. [MagicNumber]
 Audit done.
 Checkstyle ends with 1 errors.

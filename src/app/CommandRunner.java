@@ -1045,4 +1045,20 @@ public final class CommandRunner {
 
         return objectNode;
     }
+
+    /**
+     * get top 5 artists
+     *
+     * @param commandInput the command input
+     */
+    public static ObjectNode getTop5Artists(final CommandInput commandInput) {
+        List<String> artists = Admin.getInstance().getTop5Artists();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(artists));
+
+        return objectNode;
+    }
 }

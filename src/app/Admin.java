@@ -109,7 +109,7 @@ public final class Admin {
     /**
      * Add songs.
      *
-     * @param songs the songs
+     * @param newSongs the songs
      */
     public void addSongs(final List<Song> newSongs) {
         this.songs.addAll(newSongs);
@@ -282,7 +282,10 @@ public final class Admin {
      */
     public List<String> getTop5Albums() {
         List<Album> sortedAlbums = new ArrayList<>(getAlbums());
-        sortedAlbums.sort(Comparator.comparingInt(Album::getLikes).reversed());
+        // if number of likes is equal, sort by name
+        sortedAlbums.sort(Comparator.comparingInt(Album::getLikes)
+                .reversed()
+                .thenComparing(Album::getName, Comparator.naturalOrder()));
         List<String> topAlbums = new ArrayList<>();
         int count = 0;
         for (Album album : sortedAlbums) {
@@ -293,6 +296,29 @@ public final class Admin {
             count++;
         }
         return topAlbums;
+    }
+    /**
+     * get top 5 artists
+     *
+     * @return List<String> names of top 5 artists
+     */
+    public ArrayList<String> getTop5Artists() {
+        ArrayList<Artist> sortedArtists = new ArrayList<>(artists);
+        // if number of likes is equal, sort by name
+        sortedArtists.sort(Comparator.comparingInt(Artist::getTotalLikes)
+                .reversed()
+                .thenComparing(Artist::getUsername, Comparator.naturalOrder()));
+        ArrayList<String> topArtists = new ArrayList<>();
+        int count = 0;
+        for (Artist artist : sortedArtists) {
+            if (count >= limit) {
+                break;
+            }
+            topArtists.add(artist.getUsername());
+            count++;
+        }
+        return topArtists;
+
     }
 
     /**
@@ -399,6 +425,16 @@ public final class Admin {
     public String deleteUser(final String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
+                //check if someone is listening to a playlist of this user
+                for (User u : users) {
+                    if (u.getPlayer().getSource() == null) {
+                        continue;
+                    }
+                    AudioCollection playlist = u.getPlayer().getSource().getAudioCollection();
+                    if (playlist != null && playlist.matchesOwner(username)) {
+                        return username + " can't be deleted.";
+                    }
+                }
                 // delete its playlists
                 for (Playlist playlist : user.getPlaylists()) {
                     for (User u : users) {
@@ -415,6 +451,13 @@ public final class Admin {
         }
         for (Artist artist : artists) {
             if (artist.getUsername().equals(username)) {
+                //check if someone is on artist page
+                for (User user : users) {
+                    if (user.getCurrentPageUsername() != null
+                        && user.getCurrentPageUsername().equals(username)) {
+                        return username + " can't be deleted.";
+                    }
+                }
                 // check if someone is listening to a song of this artist
                 for (User user : users) {
                     if (user.getPlayer().getSource() == null) {

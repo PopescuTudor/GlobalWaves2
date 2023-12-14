@@ -44,6 +44,8 @@ public class User {
     @Getter
     private String currentPageUsername;
 
+    private int limit = 5;
+
     /**
      * Instantiates a new User.
      *
@@ -64,6 +66,23 @@ public class User {
         status = true;
         currentPage = "Home";
         currentPageUsername = null;
+    }
+
+    /**
+     * remove liked songs from album that is going to be deleted
+     *
+     * @param albumName the name of the album
+     */
+    public String removeLikedSongsFromAlbum(final String albumName) {
+        String message = null;
+        for (Song song : likedSongs) {
+            if (song.getAlbum().equals(albumName)) {
+                likedSongs.remove(song);
+                song.dislike();
+                message = "Successfully removed song from liked songs.";
+            }
+        }
+        return message;
     }
 
     /**
@@ -144,7 +163,7 @@ public class User {
             && ((AudioCollection) searchBar.getLastSelected()).getNumberOfTracks() == 0) {
             return "You can't load an empty audio collection!";
         }
-        
+
         player.setSource(searchBar.getLastSelected(), searchBar.getLastSearchType());
         searchBar.clearSelection();
 
@@ -280,7 +299,8 @@ public class User {
             return "Please load a source before liking or unliking.";
         }
 
-        if (!player.getType().equals("song") && !player.getType().equals("playlist")) {
+        if (!player.getType().equals("song") && !player.getType().equals("playlist")
+                && !player.getType().equals("album")) {
             return "Loaded source is not a song.";
         }
 
@@ -465,7 +485,7 @@ public class User {
     /**
      * Show preferred songs array list.
      *
-     * @return the array list
+     * @return the array list of names
      */
     public ArrayList<String> showPreferredSongs() {
         ArrayList<String> results = new ArrayList<>();
@@ -475,6 +495,28 @@ public class User {
 
         return results;
     }
+
+    /**
+     * Show preferred songs sorted by number of likes, max 5
+     *
+     * @return array list of names
+     */
+     public ArrayList<String> showPreferredSongsSorted() {
+        int maxResults = limit;
+        ArrayList<String> results = new ArrayList<>();
+        ArrayList<Song> sortedSongs = new ArrayList<>(likedSongs);
+        sortedSongs.sort((song1, song2) -> song2.getLikes() - song1.getLikes());
+        for (Song song : sortedSongs) {
+            if (maxResults == 0) {
+                break;
+            }
+            results.add(song.getName());
+            maxResults--;
+        }
+
+        return results;
+
+     }
 
     /**
      * Show preferred songs with artist name in array list.
@@ -542,7 +584,7 @@ public class User {
             switch (currentPage) {
                 case "Home" -> {
                     return String.format("Liked songs:\n\t%s\n\nFollowed playlists:\n\t%s",
-                            showPreferredSongs(), showPlaylistsNames());
+                            showPreferredSongsSorted(), showPlaylistsNames());
                 }
                 case "LikedContent" -> {
                     return String.format("Liked songs:\n\t%s\n\nFollowed playlists:\n\t%s",
