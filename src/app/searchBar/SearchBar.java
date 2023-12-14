@@ -148,7 +148,7 @@ public final class SearchBar {
             case "artist":
                 entries = new ArrayList<>(Admin.getInstance().getArtists());
 
-                if(filters.getName() != null) {
+                if (filters.getName() != null) {
                     entries = filterByName(entries, filters.getName());
                 }
 

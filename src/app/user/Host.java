@@ -8,6 +8,9 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 
+/**
+ * user type host class that extends LibraryEntry
+ */
 @Getter
 public class Host extends LibraryEntry {
     private final String username;
@@ -24,6 +27,11 @@ public class Host extends LibraryEntry {
         this.announcements = new ArrayList<>();
     }
 
+    /**
+     * Add podcast for host
+     *
+     * @param podcast the podcast
+     */
     public String addPodcast(final Podcast podcast) {
 
         // check for a podcast with the same name
@@ -107,16 +115,17 @@ public class Host extends LibraryEntry {
      * @return the string
      */
     public String printHostPage() {
-        ArrayList<String> podcasts = new ArrayList<>();
-        ArrayList<String> announcements = new ArrayList<>();
+        ArrayList<String> printPodcasts = new ArrayList<>();
+        ArrayList<String> printAnnouncements = new ArrayList<>();
 
         for (Podcast podcast : this.podcasts) {
-            podcasts.add(podcast.printPodcast());
+            printPodcasts.add(podcast.printPodcast());
         }
         for (Announcement announcement : this.announcements) {
-            announcements.add(announcement.printAnnouncement());
+            printAnnouncements.add(announcement.printAnnouncement());
         }
 
-        return String.format("Podcasts:\n\t%s\n\nAnnouncements:\n\t%s", podcasts, announcements);
+        return String.format("Podcasts:\n\t%s\n\nAnnouncements:\n\t%s", printPodcasts,
+                printAnnouncements);
     }
 }

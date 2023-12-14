@@ -73,14 +73,9 @@ public final class Main {
         LibraryInput library = objectMapper.readValue(new File(CheckerConstants.TESTS_PATH
                                                                + "library/library.json"),
                                                                LibraryInput.class);
-        CommandInput[] commands = objectMapper.readValue(new File(CheckerConstants.TESTS_PATH
-                                                                  + filePath1),
-                                                                  CommandInput[].class);
+        CommandInput[] commands = objectMapper.readValue(
+                new File(CheckerConstants.TESTS_PATH + filePath1), CommandInput[].class);
 
-//        LibraryInput library = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\"
-//                        + "library/library.json"),
-//                LibraryInput.class);
-//        CommandInput[] commands = objectMapper.readValue(new File("D:\\AN 3 SEM 1\\POO\\GlobalWaves2\\input\\test10_etapa2_next_prev_forward_backward.json"), CommandInput[].class);
 
         ArrayNode outputs = objectMapper.createArrayNode();
 

@@ -7,16 +7,18 @@ import app.audio.Files.Song;
 import app.audio.LibraryEntry;
 import app.community.Event;
 import app.community.Merch;
-import app.player.Player;
-import app.searchBar.SearchBar;
 import lombok.Getter;
 
 import java.util.ArrayList;
+
+/**
+ * user type artist class that extends LibraryEntry
+ */
 @Getter
-public class Artist extends LibraryEntry{
-    private String username;
-    private int age;
-    private String city;
+public class Artist extends LibraryEntry {
+    private final String username;
+    private final int age;
+    private final String city;
     private ArrayList<Album> albums;
     private ArrayList<Event> events;
     private ArrayList<Merch> merch;
@@ -59,8 +61,7 @@ public class Artist extends LibraryEntry{
             // check for songs with the same name in the album
             if (hasDuplicates(songs)) {
                 message = username + " has the same song at least twice in this album.";
-            }
-            else {
+            } else {
                 final Album album = new Album(name, owner, description, songs, releaseYear,
                                         timestamp);
                 this.albums.add(album);
@@ -87,7 +88,7 @@ public class Artist extends LibraryEntry{
 
                 // check for any user that might listen to a song from the album
                 for (final User user : Admin.getInstance().getUsers()) {
-                    if(user.getPlayer().getSource() == null) {
+                    if (user.getPlayer().getSource() == null) {
                         continue;
                     }
                     Song song = (Song) user.getPlayer().getSource().getAudioFile();
@@ -119,7 +120,7 @@ public class Artist extends LibraryEntry{
         return message;
     }
 
-    private static boolean hasDuplicates(ArrayList<Song> songs) {
+    private static boolean hasDuplicates(final ArrayList<Song> songs) {
         for (int i = 0; i < songs.size(); i++) {
             for (int j = i + 1; j < songs.size(); j++) {
                 if (songs.get(i).getName().equals(songs.get(j).getName())) {
@@ -139,7 +140,7 @@ public class Artist extends LibraryEntry{
      */
     public String addEvent(final String name, final String description, final String date) {
         String message = null;
-        String DATE_REGEX =
+        String dateRegex =
                 "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\\d\\d|20[0-2][0-3])$";
         // check for an event with the same name
         for (final Event e : this.events) {
@@ -150,7 +151,7 @@ public class Artist extends LibraryEntry{
         }
         if (message == null) {
             // check for a valid date
-            if (!date.matches(DATE_REGEX)) {
+            if (!date.matches(dateRegex)) {
                 message = "Event for " + username + " does not have a valid date.";
             }
         }
@@ -216,8 +217,8 @@ public class Artist extends LibraryEntry{
         }
         // add merch item
         if (message == null) {
-            final Merch merch = new Merch(name, description, price);
-            this.merch.add(merch);
+            final Merch newMerch = new Merch(name, description, price);
+            this.merch.add(newMerch);
             message = username + " has added new merchandise successfully.";
         }
 
@@ -230,21 +231,21 @@ public class Artist extends LibraryEntry{
      * @return the string
      */
     public String printArtistPage() {
-        ArrayList<String> albums = new ArrayList<>();
-        ArrayList<String> merch = new ArrayList<>();
-        ArrayList<String> events = new ArrayList<>();
+        ArrayList<String> printAlbums = new ArrayList<>();
+        ArrayList<String> printMerch = new ArrayList<>();
+        ArrayList<String> printEvents = new ArrayList<>();
 
         for (Album album : this.albums) {
-            albums.add(album.printAlbum());
+            printAlbums.add(album.printAlbum());
         }
         for (Merch merchItem : this.merch) {
-            merch.add(merchItem.printMerch());
+            printMerch.add(merchItem.printMerch());
         }
         for (Event event : this.events) {
-            events.add(event.printEvent());
+            printEvents.add(event.printEvent());
         }
         return String.format("Albums:\n\t%s\n\nMerch:\n\t%s\n\nEvents:\n\t%s",
-                albums, merch, events);
+                printAlbums, printMerch, printEvents);
     }
 
 }

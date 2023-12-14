@@ -1,14 +1,12 @@
 package app;
 
 import app.audio.Collections.Album;
-import app.audio.Collections.AlbumOutput;
 import app.audio.Collections.AudioCollection;
 import app.audio.Collections.Playlist;
 import app.audio.Collections.Podcast;
 import app.audio.Files.AudioFile;
 import app.audio.Files.Episode;
 import app.audio.Files.Song;
-import app.player.PlayerSource;
 import app.user.Artist;
 import app.user.Host;
 import app.user.User;
@@ -35,13 +33,18 @@ public final class Admin {
     private List<Song> songs = new ArrayList<>();
     private List<Podcast> podcasts = new ArrayList<>();
     private int timestamp = 0;
-    private final int LIMIT = 5;
+    private final int limit = 5;
     // singleton pattern
     private static Admin instance = null;
 
     private Admin() {
     }
 
+    /**
+     * gets instance of admin for Singleton pattern
+     *
+     * @return instance of admin
+     */
     public static Admin getInstance() {
         if (instance == null) {
             instance = new Admin();
@@ -108,8 +111,8 @@ public final class Admin {
      *
      * @param songs the songs
      */
-    public void addSongs(final List<Song> songs) {
-        this.songs.addAll(songs);
+    public void addSongs(final List<Song> newSongs) {
+        this.songs.addAll(newSongs);
     }
 
     /**
@@ -241,7 +244,7 @@ public final class Admin {
         List<String> topSongs = new ArrayList<>();
         int count = 0;
         for (Song song : sortedSongs) {
-            if (count >= LIMIT) {
+            if (count >= limit) {
                 break;
             }
             topSongs.add(song.getName());
@@ -263,7 +266,7 @@ public final class Admin {
         List<String> topPlaylists = new ArrayList<>();
         int count = 0;
         for (Playlist playlist : sortedPlaylists) {
-            if (count >= LIMIT) {
+            if (count >= limit) {
                 break;
             }
             topPlaylists.add(playlist.getName());
@@ -283,7 +286,7 @@ public final class Admin {
         List<String> topAlbums = new ArrayList<>();
         int count = 0;
         for (Album album : sortedAlbums) {
-            if (count >= LIMIT) {
+            if (count >= limit) {
                 break;
             }
             topAlbums.add(album.getName());

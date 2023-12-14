@@ -15,7 +15,6 @@ import app.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.input.CommandInput;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -765,18 +764,19 @@ public final class CommandRunner {
             }
         }
 
-        if(message == null) {
+        if (message == null) {
             switch (commandInput.getType()) {
                 case "user" -> {
-                    User user = new User(commandInput.getUsername(), commandInput.getAge()
-                                    , commandInput.getCity());
+                    User user = new User(commandInput.getUsername(), commandInput.getAge(),
+                                    commandInput.getCity());
                     Admin.getInstance().addNewUser(user);
                     message = "The username " + commandInput.getUsername()
                             + " has been added successfully.";
                 }
                 case "artist" -> {
-                    Artist artist = new Artist(commandInput.getUsername(), commandInput.getUsername(),
-                            commandInput.getAge(), commandInput.getCity());
+                    Artist artist = new Artist(commandInput.getUsername(),
+                            commandInput.getUsername(), commandInput.getAge(),
+                            commandInput.getCity());
                     Admin.getInstance().addNewArtist(artist);
                     message = "The username " + commandInput.getUsername()
                                 + " has been added successfully.";
@@ -789,7 +789,9 @@ public final class CommandRunner {
                     message = "The username " + commandInput.getUsername()
                             + " has been added successfully.";
                 }
-                default -> message = "Invalid type.";
+                default -> {
+                    message = "Invalid type.";
+                }
             }
         }
         ObjectNode objectNode = objectMapper.createObjectNode();
@@ -806,7 +808,7 @@ public final class CommandRunner {
      *
      * @param commandInput the command input
      */
-    public static ObjectNode deleteUser(CommandInput commandInput) {
+    public static ObjectNode deleteUser(final CommandInput commandInput) {
         String message = Admin.getInstance().deleteUser(commandInput.getUsername());
 
         ObjectNode objectNode = objectMapper.createObjectNode();
@@ -1002,7 +1004,7 @@ public final class CommandRunner {
      *
      * @param commandInput the command input
      */
-    public static ObjectNode showPodcasts(CommandInput commandInput) {
+    public static ObjectNode showPodcasts(final CommandInput commandInput) {
         ArrayList<Podcast> podcasts = Objects.requireNonNull(
                         Admin.getInstance().getHost(commandInput.getUsername()))
                         .getPodcasts();
@@ -1025,7 +1027,7 @@ public final class CommandRunner {
      *
      * @param commandInput the command input
      */
-    public static ObjectNode changePage(CommandInput commandInput) {
+    public static ObjectNode changePage(final CommandInput commandInput) {
         User user = Admin.getInstance().getUser(commandInput.getUsername());
         String message;
         if (!commandInput.getNextPage().equals("Home")

@@ -35,12 +35,12 @@ public final class Podcast extends AudioCollection {
      */
     public String printPodcast() {
         String podcast = "";
-        ArrayList<String> episodes = new ArrayList<>();
+        ArrayList<String> newEpisodes = new ArrayList<>();
         podcast += this.getName() + ":\n\t";
         for (Episode episode : this.episodes) {
-            episodes.add(episode.getName() + " - " + episode.getDescription());
+            newEpisodes.add(episode.getName() + " - " + episode.getDescription());
         }
-        podcast += episodes + "\n";
+        podcast += newEpisodes + "\n";
         return podcast;
     }
 }

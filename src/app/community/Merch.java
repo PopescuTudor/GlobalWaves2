@@ -20,7 +20,7 @@ public class Merch {
      * @return String
      */
     public String printMerch() {
-        String merch ="";
+        String merch = "";
         merch += name + " - " + price + ":\n\t" + description;
         return merch;
     }

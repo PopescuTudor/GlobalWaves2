@@ -3,8 +3,11 @@ package app.audio.Collections;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+/**
+ * Class to output essential information about an album
+ */
 @Getter @Setter
 public class AlbumOutput {
 
