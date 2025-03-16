@@ -1,5 +1,5 @@
 # Proiect GlobalWaves  - Etapa 2
-## Popescu Tudor-Cristian 334CD
+
 
 
 
@@ -51,4 +51,3 @@
 * ref/ - contains all reference output for the tests in JSON format
 
 
-## Design pattern used: ... ✨ Singleton ✨ 
